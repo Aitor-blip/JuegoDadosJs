@@ -8,7 +8,6 @@ var oldy = 0;
 window.onload = () =>{
     inicializar();
     dibujarTablero();
-    movimientoPersonaje();
     generarBoton();
 }
 
@@ -20,10 +19,9 @@ function dibujarTablero(){
     let divTablero = document.createElement("div");
     divTablero.classList.add("tablero");
     tablero.appendChild(divTablero);
-   // arrayTablero[oldx][oldy].classList.add("hero");
     let cont = 0;
-    for (let i = 0; i < 10;i++) {
-        for (let j = 0; j < 10;j++) {
+    for (let i = 0; i < 9;i++) {
+        for (let j = 0; j < 9;j++) {
            let casilla = document.createElement("div");
             if(arrayTablero[i][j] == 1){
                 casilla.classList.add("personaje","casilla");
@@ -41,7 +39,7 @@ function dibujarTablero(){
     }
 }
 
-function movimientoPersonaje(){
+function movimientoPersonaje(numero){
 
     var divsPersonaje = document.getElementsByClassName("personaje");
     var divs = document.querySelectorAll(".casilla");
@@ -51,6 +49,10 @@ function movimientoPersonaje(){
         console.log(divPersonaje);
         if(jugador==0){
             jugador += 4;
+            if(jugador>=99){
+                jugador -= numero;
+                console.log(jugador);
+            }
         }
         console.log("Jugador "+jugador);
 
@@ -100,6 +102,7 @@ function generarBoton(){
             default:
         }
         getPosicionPersonaje(numero);
+        movimientoPersonaje(numero);
         dibujarTablero();
     });
     
@@ -113,26 +116,26 @@ function getNumeroAleatorio(){
 }
 
 
-function getPosicionPersonaje(avance){
+function getPosicionPersonaje(avance){ 
     jugador = jugador + avance;
+    console.log(jugador);
+     if(jugador > 99){    
+            jugador = 100 - avance;
+            console.log(jugador);
+            if(jugador == 99){
+                alert("Has ganado");
+                console.log(jugador);
+            }else if(jugador < 99){
+                jugador = jugador + avance;
+            }
+        }
+
     let x = jugador%10-1;
     let y = parseInt(jugador/10)-1;
     arrayTablero[y][x] = 1;
     arrayTablero[oldy][oldx] = 0;
     oldx = x;
     oldy = y;
-   // alert("Te has movido "+avance+" casillas");
-   console.log("Casilla X Nueva : "+x);
-   console.log("Casilla Y Nueva : "+y);
-   console.log("Casilla X Old : "+oldx);
-   console.log("Casilla Y Old : "+oldy);
-
-   if(x==9 & y == 9){
-    alert("Has ganado");
-   }else{
-    let diferencia = 99 -avance;
-    console.log(diferencia);
-   }
 }
 
 function inicializar(){
