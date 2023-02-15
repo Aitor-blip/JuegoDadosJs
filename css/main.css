@@ -5,11 +5,12 @@
 }
 
 .container{
-  margin: 0 auto;
+  margin:0 auto;
   width: 1000px;
+  height: 1000px;
 }
 
-.container > div{
+.container > div[class^="s"],.container > div[class^="c"]{
   border: 2px dashed red;
 }
 
@@ -17,10 +18,11 @@
   float: left;
   width: 10%;
   height: 50px;
+  border: 4px dashed blue;
 }
 
 .personaje{
-  background-color: red;
+  background-color: yellow;
 }
 
 .salto{
@@ -29,6 +31,42 @@
 
 
 .suelo{
-  background-color: black;
+  background-color: white;
+}
+
+button{
+  margin-top: 20px;
+  width: 300px;
+  height: 100px;
+}
+
+img{
+  width: 200px;
+  height: 200px;
+}
+
+.dado{
+  display: flex;
+  align-self: center;
+  border: 0px dashed black;
+  justify-content: center;
+}
+
+.boton{
+  display: flex;
+  align-self: center;
+  border: 0px dashed black;
+  justify-content: center;
+}
+
+.posible{
+  background-color: red;
+}
+
+.cofre{
+  background-image: url('../images/cofre.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 

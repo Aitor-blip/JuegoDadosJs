@@ -2,13 +2,14 @@
 
 var arrayTablero = [];
 var jugador = 0;
-var posTotales = 99;
-var oldx=0;
-var oldy = 0;
+var oldfila=0;
+var tiradas = 0;
+var oldcolumna = 0;
 window.onload = () =>{
     inicializar();
     dibujarTablero();
     generarBoton();
+    
 }
 
 function dibujarTablero(){
@@ -20,13 +21,25 @@ function dibujarTablero(){
     divTablero.classList.add("tablero");
     tablero.appendChild(divTablero);
     let cont = 0;
-    for (let i = 0; i < 9;i++) {
-        for (let j = 0; j < 9;j++) {
+    let posibles=0;
+    for (let i = 0; i < 10;i++) {
+        for (let j = 0; j < 10;j++) {
            let casilla = document.createElement("div");
             if(arrayTablero[i][j] == 1){
                 casilla.classList.add("personaje","casilla");
+                posibles = 6;
             }else{
-                casilla.classList.add("suelo","casilla");
+                if(posibles > 0){
+                    casilla.classList.add("posible","casilla");
+                    posibles--;
+                }else{
+                    casilla.classList.add("suelo","casilla");
+                }
+                
+            }
+            if(arrayTablero[i][j] == 2){
+                casilla.classList.remove("suelo","casilla");
+                casilla.classList.add("cofre","casilla");
             }
             
             casilla.setAttribute("numero",cont++);
@@ -35,31 +48,8 @@ function dibujarTablero(){
         let divSalto = document.createElement("div");
         divSalto.classList.add("salto");
         divTablero.appendChild(divSalto);
-         
-    }
-}
-
-function movimientoPersonaje(numero){
-
-    var divsPersonaje = document.getElementsByClassName("personaje");
-    var divs = document.querySelectorAll(".casilla");
-    for(let i=0;i<divsPersonaje.length;i++){
-        var divPersonaje = divsPersonaje[i];
-        divPersonaje.addEventListener("click",function(e){
-        console.log(divPersonaje);
-        if(jugador==0){
-            jugador += 4;
-            if(jugador>=99){
-                jugador -= numero;
-                console.log(jugador);
-            }
-        }
-        console.log("Jugador "+jugador);
-
-        let numeroAleatorio = getNumeroAleatorio();
-        console.log("Numero Aleatorio : "+numeroAleatorio);
-
-       })
+        eventosCasillas();
+//        console.log(arrayTablero);
     }
 }
 
@@ -72,12 +62,14 @@ function generarBoton(){
     let boton = document.createElement("button");
     boton.textContent="Tirar Dado";
     var imagen = document.createElement("img");
-    if(imagen.src=""){
-        imagen.src="../images/dado1.jpg";
+    if(!imagen.getAttribute("src")){
+        imagen.setAttribute("src","../images/dado1.jpg");
     }
     container.appendChild(divBoton);
     divBoton.appendChild(boton);
     boton.addEventListener("click",function(e){
+        tiradas++;
+        console.log("Tiradas realizadas : "+tiradas);
         let numero = 0;
         numero = getNumeroAleatorio();
         switch(numero){
@@ -94,7 +86,7 @@ function generarBoton(){
                 imagen.src="../images/dado4.jpg";
                 break;
             case 5:
-                imagen.src="../images/dado2.jpg";
+                imagen.src="../images/dado5.jpg";
                 break;
             case 6:
                 imagen.src="../images/dado6.jpg";
@@ -102,7 +94,6 @@ function generarBoton(){
             default:
         }
         getPosicionPersonaje(numero);
-        movimientoPersonaje(numero);
         dibujarTablero();
     });
     
@@ -117,25 +108,28 @@ function getNumeroAleatorio(){
 
 
 function getPosicionPersonaje(avance){ 
-    jugador = jugador + avance;
-    console.log(jugador);
-     if(jugador > 99){    
-            jugador = 100 - avance;
-            console.log(jugador);
-            if(jugador == 99){
-                alert("Has ganado");
-                console.log(jugador);
-            }else if(jugador < 99){
-                jugador = jugador + avance;
-            }
-        }
-
-    let x = jugador%10-1;
-    let y = parseInt(jugador/10)-1;
-    arrayTablero[y][x] = 1;
-    arrayTablero[oldy][oldx] = 0;
-    oldx = x;
-    oldy = y;
+    console.log(oldfila+" "+oldcolumna);
+    if((eval(jugador) + avance) > 99){
+      jugador = 99 - (eval(jugador)+avance - 99);
+    }else{
+        jugador = eval(jugador) + avance;
+    }
+    console.log("Jugador : "+jugador);
+    console.log("Casilla actual : "+jugador);
+  
+    let columna = jugador%10;
+    let fila = parseInt(jugador/10);
+    arrayTablero[fila][columna] = 1;
+    if(fila != oldfila || columna!=oldcolumna){
+        arrayTablero[oldfila][oldcolumna] = 0;
+    }
+    oldfila = fila;
+    oldcolumna = columna;
+    console.log(avance);
+    console.log(fila+" "+columna);
+    ganar(jugador);
+   
+   
 }
 
 function inicializar(){
@@ -147,8 +141,40 @@ function inicializar(){
         }
     }
     arrayTablero[0][0] = 1;
+    arrayTablero[9][9] = 2;
     let divTablero = document.createElement("div");
     divTablero.classList.add("tablero");
     let container = document.querySelector(".container");
     container.appendChild(divTablero);
+}
+
+function eventosCasillas(){
+    let casillas = document.querySelectorAll(".casilla");
+    for(let i=0;i<casillas.length;i++){
+        casillas[i].addEventListener("click",(e)=>{
+            if(casillas[i].classList.contains("posible")){
+               casillas[i].classList.add("personaje");
+               casillas[i].classList.remove("posible");
+               let numero = casillas[i].getAttribute("numero");
+               jugador = numero;
+               let fila = parseInt(numero/10);
+               let columna = parseInt(numero%10);
+               arrayTablero[fila][columna] = 1;
+               if(fila != oldfila || columna!=oldcolumna){
+                arrayTablero[oldfila][oldcolumna] = 0;
+               }
+               console.log("Jugador : "+jugador);
+                oldfila = fila;
+                oldcolumna = columna;
+                dibujarTablero();
+                ganar(jugador);
+            }
+        })   
+    }
+}
+
+function ganar(casilla){
+    if(casilla == 99){
+        alert("Héroe, has llegado al cofre en "+tiradas+" tiradas");
+    }
 }
