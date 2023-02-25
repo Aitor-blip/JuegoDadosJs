@@ -1,0 +1,90 @@
+.contenedor {
+  width: 30%;
+	perspective: 30%;
+  float: left;
+	perspective-origin: 50% 50%;
+}
+.cubo, .cubo .cara{
+	height: 90px;
+	width: 90px;
+}
+ 
+.cubo {
+	transform-style: preserve-3d;
+	transform: rotateX( 0deg ) rotateY( -30deg );
+	margin: 200px auto;
+}
+.cubo .cara {
+  position: absolute;
+  border: 6px solid #000;
+  opacity: 0.95;
+}
+ 
+/*Cara frontal*/
+.cubo .cara:nth-child(1) {
+  background-image: url(http://www.lawebdelprogramador.com/usr/147000/147685/527560a9ce32f-dado1.png);
+  background-size: 90px;
+  transform: translateZ(50px);
+}
+/*Cara posterior*/
+.cubo .cara:nth-child(2) {
+  background-image: url(http://www.lawebdelprogramador.com/usr/147000/147685/527560a9d15f6-dado2.png);
+  background-size: 90px;
+  transform: rotateY(180deg) translateZ(50px);
+}
+/*Cara izquierda*/
+.cubo .cara:nth-child(3) {
+  background-image: url(http://www.lawebdelprogramador.com/usr/147000/147685/527560a9d48bd-dado3.png);
+  background-size: 90px;
+  transform: rotateY(-90deg) translateZ(50px);
+}
+/*Cara derecha*/
+.cubo .cara:nth-child(4) {
+  background-image: url(http://www.lawebdelprogramador.com/usr/147000/147685/527560a9d7bc5-dado4.png);
+  background-size: 90px;
+  transform: rotateY(90deg) translateZ(50px);
+}
+/*Cara superior*/
+.cubo .cara:nth-child(5) {
+  background-image: url(http://www.lawebdelprogramador.com/usr/147000/147685/527560a9daa7f-dado5.png);
+  background-size: 90px;
+  transform: rotateX(90deg) translateZ(50px);
+}
+/*Cara inferior*/
+.cubo .cara:nth-child(6) {
+  background-image: url(http://www.lawebdelprogramador.com/usr/147000/147685/527560a9ddd30-dado6.png);
+  background-size: 90px;
+  transform: rotateX(-90deg) translateZ(50px);
+}
+@keyframes giro {
+    0% { transform: rotateX(  -45deg ) rotateY(   0deg ); }
+    50% { transform: rotateX(  45deg ) rotateY(   360deg ); }
+    100% { transform: rotateX( -45deg ) rotateY( 720deg ); }
+}
+@keyframes para {
+  
+}
+.cubo {
+  animation: giro 2s 1 linear;
+}
+.resul {
+  transform: rotateX( 0deg ) rotateY( 0deg );
+  width: 100px;
+  animation:stop;
+}
+img {
+  width: 100px;
+  border: 6px solid black;
+  display: block;
+  margin: auto;
+}
+#tirar {
+  width: 80px;
+  margin: 0 auto;
+  border: 2.9px solid black;
+  text-align: center;
+  font-variant: small-caps;
+  font-family: arial black;
+  cursor: pointer;
+  box-shadow: 0 0 15px #8B8B8B;
+}

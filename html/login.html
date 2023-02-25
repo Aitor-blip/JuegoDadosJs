@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login con Bootstrap</title>
+    <!--Links bootstrap 5-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!--Modulos Login y SignUp-->
+    <script type="module" src="../js/signUpForm.js" defer></script>
+    <script type="module" src="../js/signInForm.js" defer></script>
+    <script type="module" src="../js/login.js" defer></script>
+    <!--Link Toastify-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+    <!--NavBar-->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container">
+          <a class="navbar-brand" href="#">Juego App</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item logged-out">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+              </li>
+              <li class="nav-item logged-out">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a>
+              </li>
+              <li class="nav-item logged-in">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal" id="logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!--Modales de Bootstrap para el Login,SignUp-->
+
+      <!-- Modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Login</h1>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!--
+            Formulario de Login
+          -->
+          <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control mb-3" placeholder="Email" id="login-email" required>
+
+            <label for="password">Password:</label>
+            <input type="text" class="form-control mb-3" placeholder="Password" id="login-password" required>
+
+            <button name="login" class="btn btn-primary w-100 mb-4">Login</button>
+          </form>
+          <button type="button" id="googleLogin" class="btn btn-info">
+            Google
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <!-- Modal SignUp -->
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Sign Up</h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="signUp-form">
+                <label for="email">Email:</label>
+                <input type="text" class="form-control mb-3" placeholder="Email" id="signUp-email" required>
+                <label for="password">Password:</label>
+                <input type="text" class="form-control mb-3" placeholder="Password" id="signUp-password" required>    
+                <button name="signUp" class="btn btn-primary">SignUp</button>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!--Script Js de Bootstrap 5-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!--Script Js de Toastify-->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+</html>
