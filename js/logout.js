@@ -3,7 +3,7 @@ import {auth} from '../js/firebase.js';
 'use strict';
 const logout = document.querySelector("#logout");
 
-logout.addEventListener("click",async()=>{
+logout.addEventListener("click",async(e)=>{
    await signOut(auth);
    console.log("The user has signed out");
 });

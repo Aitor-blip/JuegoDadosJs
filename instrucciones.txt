@@ -1,2 +1,6 @@
 Primero se ejecuta login.html
 Segundo se ejecutara index.html
+
+
+Usuario prueba : aitorparadalinaje002@gmail.com
+Password : aitor2002

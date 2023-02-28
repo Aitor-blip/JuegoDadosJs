@@ -27,7 +27,7 @@ form.addEventListener("submit",async(e)=>{
     //Cuando se haya hecho el registro correctamente muestro el mensaje de bienvenida al usuario
     showMessage("Welcome "+ newUser.user.email,"success");
 
-    const nuevo = "http://127.0.0.1:5501/html/index.html";
+    const nuevo = "http://localhost:5501/html/index.html";
     window.location.href=nuevo;
     
     }catch(error){
@@ -44,7 +44,7 @@ form.addEventListener("submit",async(e)=>{
     }else if(error.code){
         showMessage('Something went wrong',"error");
     }
-    /* const defecto = "http://127.0.0.1:5501/html/login.html";
-    window.location.href=defecto; */
+    const defecto = "http://127.0.0.1:5501/html/login.html";
+    window.location.href=defecto;
     }
 });

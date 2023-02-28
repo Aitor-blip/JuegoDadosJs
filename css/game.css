@@ -3,6 +3,10 @@
     height: 100vh;
 }
 
+body{
+    background-color: beige;
+}
+
 table{
     float: left;
     margin-top: 70px;
@@ -36,4 +40,15 @@ td{
 
 .destino{
     background-color: chartreuse;
+}
+.usada{
+    background-color: cadetblue;
+    width: 50px;
+    height: 50px; 
+}
+
+@media only screen and (max-width:700px){
+    .container{
+        height: 50%;
+    }
 }

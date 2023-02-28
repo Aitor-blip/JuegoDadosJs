@@ -4,14 +4,16 @@ import {showMessage} from '../js/showMessage.js';
 'use strict';
 const googleButton = document.querySelector("#googleLogin");
 
-googleButton.addEventListener("click",async (e) =>{
+console.log(googleButton);
+
+googleButton.addEventListener("click",async () =>{
     const provider = new GoogleAuthProvider();
     try{
         const credentials = await signInWithPopup(auth,provider);
         console.log(credentials);
         const loginModal = document.querySelector("#loginModal");
         const modal = boostrap.Modal.getInstance(loginModal);
-        modal.hide();
+        //modal.hide();
         showMessage("Welcome "+credentials.user.displayName,"success");
     }catch(error){
         console.log(error);
