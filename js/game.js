@@ -321,8 +321,6 @@ function resaltarDestino() {
 }
 
 window.onload = function () {
-    alert("Hola,bienvenido al juego");
-    //leerDatos(nTiradas);
     inicializarArrayTablero();
     generarTabla();
     actualizarTabla();
