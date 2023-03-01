@@ -11,6 +11,7 @@ form.addEventListener("submit",async(e)=>{
     e.preventDefault();
     let email = form['signUp-email'].value;
     let password = form['signUp-password'].value;
+    insertarDatosNombre(email);
 
     console.log("Email : "+email);
     console.log("Password : "+password);

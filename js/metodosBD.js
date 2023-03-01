@@ -1,64 +1,56 @@
 import { firebaseConfig } from "./firebase.js";
 import { collection, addDoc,query,where,getDocs } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 import { db } from './firebase.js';
-import {fechaInicial,fechaFinal,nTiradas,arrayCasillasUsadas} from './game.js';
+import {fechaInicial,fechaFinal} from './game.js';
 'use strict';
-export function insertarDatosInicio(){
-      
-            window.addEventListener(("load"),async(e)=>{
-             try {
-              console.log(nTiradas);
-                const docRef = await addDoc(collection(db, "users"), {
-                    nombre : "Aitor",
-                    fechaInicial:fechaInicial,
-                    fechaFinal:fechaFinal,
-                    recordTiradas:nTiradas,
-                    nCasillasUsadas:arrayCasillasUsadas.length
-            });
-            console.log("Datos Insertados");
-          } catch (e) {
-            console.error("Error adding document: ", e);
-            alert("Fallo al insertar");
-          }  
-    }); 
-  }
+  //Falta aplicar este metodo cuando ganas o no tienes movimientos para moverte
 
-  export function insertarDatosFinal(){
-
-    let td = document.querySelector("table tr:nth-child(10) td:nth-child(10)");
-    td.addEventListener("click",async(e)=>{
-    try {
-      console.log(nTiradas);
-        const docRef = await addDoc(collection(db, "users"), {
-            nombre : "Aitor",
+  export function insertarDatos(tiradas,arrayCasillas){
+        const docRef = addDoc(collection(db, "usuariosJuego"), {
             fechaInicial:fechaInicial,
             fechaFinal:fechaFinal,
-            recordTiradas:nTiradas,
-            nCasillasUsadas:arrayCasillasUsadas.length
-    });
-    console.log("Datos Insertados");
-  } catch (e) {
-    console.error("Error adding document: ", e);
-    alert("Fallo al insertar");
-  }  
-}); 
+            recordTiradas:tiradas,
+            movimientos : arrayCasillas
+  });
 }
 
-  export function leerDatos(){
-    const users = collection(db, "users");
-    window.addEventListener("DOMContentLoaded",async(e)=>{
-    // Create a query against the collection.
-        const recordTiradas = query(users, where("recordTiradas", ">=", "0"));
-        const querySnapshot = await getDocs(recordTiradas);
-        querySnapshot.forEach((doc) => {
-        console.log("Id : "+doc.id, " => ","Record Tiradas : "+doc.data().recordTiradas);
-        if(doc.data().recordTiradas >= 1){
-            alert("Hay tiradas");
-        }else if(doc.data().recordTiradas <=0 || doc.data().recordTiradas === undefined){
-            alert("No hay tiradas");
-        }
+
+export function insertarDatosNombre(nombre){
+  const docRef = addDoc(collection(db, "users"), {
+    nombre : nombre
+});
+}
+
+  export function leerDatos(tiradas){
+    console.log("Metodo leer datos");
+      // Mostrar el alert
+    alert("Leyendo Datos");
+
+    // Esperar 2 segundos (2000 milisegundos)
+    setTimeout(async function() {
+      await funcionBd(tiradas);
+      // continuar con el código aquí
+    }, 2000);
+
+    }
+
+    export 
+
+      async function funcionBd(tiradas){
+        console.log("Estoy en el evento");
+        const users = collection(db, "usuariosJuego");
+        const consulta = query(users, where("recordTiradas", "!=", ""));
+        const querySnapshot = await getDocs(consulta);
+          querySnapshot.forEach((doc) => { 
+            let record = doc.data().recordTiradas;
+            if(record < 200){
+              let mensajeWin = "Héroe, has establecido un récord de tiradas con "+tiradas+"tiradas";
+              alert(mensajeWin);
+            }else{
+              let mensajeLose = "Récord no superado, el actual récord es "+recordTiradas;
+              alert(mensajeLose);
+            }
         });
-    });
-}
-
-
+      }
+    
+        

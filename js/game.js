@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import {app,firebaseConfig} from '../js/firebase.js';
-import {insertarDatosInicio,insertarDatosFinal,leerDatos} from './metodosBD.js';
+import {insertarDatos,leerDatos} from './metodosBD.js';
 'use strict'; 
 var result = 0;
 // Fecha de inicio de la partida
@@ -9,10 +9,9 @@ const fechaFin= new Date('2023-02-28T10:00:00');
 export var fechaInicial = fechaInicio.toLocaleString();
 export var fechaFinal =  fechaFin.toLocaleString();
 const container = document.querySelector(".container");
-export var nTiradas = 0;
-var movido = false;
+var nTiradas = 0;
 var arrayTablero = [];
-export var arrayCasillasUsadas = [];
+var arrayCasillasUsadas = [];
 var inicio=true; //indica el principio del juego
 var movimiento=false; //controla cuando puedo moverme a una nueva casilla y cuando el dado esta activo o no.
 const PERSONAJE = 1;
@@ -24,10 +23,6 @@ const USADA = 4;
 var coordenada = {
     fila: 0,
     columna: 0
-}
-
-if(!ganador){
-    insertarDatosInicio();
 }
 
 function inicializarArrayTablero() {
@@ -134,6 +129,7 @@ function generarDado() {
     divContenedor.appendChild(divDado);
 }
 function eventoDestino(){
+    movimiento=false;
     let celdasDestino = document.querySelectorAll(".destino");
     if(celdasDestino!=undefined){
         console.log(celdasDestino.length);
@@ -165,6 +161,7 @@ function quitarDestinos(){
 }
 }
 function moverPersonaje(f,c){
+    movimiento = false;
     /* le quito de donde este y le situo en las nuevas coordenadas*/
     let personaje=document.querySelector(".personaje");
     let fila=personaje.parentNode.rowIndex;
@@ -175,6 +172,7 @@ function moverPersonaje(f,c){
     celdaAntigua.classList.remove("personaje");
     console.log("nueva fila personaje : "+f+" nueva Columna personaje:"+c);*/
     arrayTablero[f][c]=PERSONAJE;
+    movimiento = true;
    /* let celdaNueva= document.querySelector("table tr:nth-child("+(f+1)+") td:nth-child("+(f+1)+")");
     celdaNueva.classList.add("personaje");*/
     //Actualizo el numero de Tiradas
@@ -182,8 +180,9 @@ function moverPersonaje(f,c){
     quitarDestinos();
     actualizarTabla();
     comprobarGanador();
-    console.log("Array de casillas usadas : ");
-    console.log(arrayCasillasUsadas);
+    
+/*     console.log("Array de casillas usadas : ");
+    console.log(arrayCasillasUsadas); */
 
 }
 function eventoDado() {
@@ -191,9 +190,9 @@ function eventoDado() {
     divDado.addEventListener("click", (e) => {
         if(!movimiento){
                var cubo = document.getElementById("cubo");
-             document.getElementById("cubo").classList.remove('resul');
-            cubo.innerHTML = '<div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div>';
-            movimiento=true;
+              document.getElementById("cubo").classList.remove('resul');
+              cubo.innerHTML = '<div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div>';
+              movimiento=true;
         }
     });
 
@@ -254,8 +253,10 @@ function comprobarGanador(){
         alert(mensaje);
         ganador = true;
         if(ganador){
-            alert("Has ganado");
-            insertarDatosFinal();
+            console.log("Has ganado");
+            insertarDatos(nTiradas,arrayCasillasUsadas);
+            leerDatos(nTiradas);
+            
         }
     }
 }
@@ -271,10 +272,8 @@ function comprobarNoHaySalida(){
     }
     if (contador==0){
         alert("No has mas movimientos disponibles");
-        ganador = true;
-        if(ganador){
-            insertarDatosInicio();
-        }
+        ganador = false;
+        leerDatos(nTiradas);
     }
 }
 
@@ -322,8 +321,8 @@ function resaltarDestino() {
 }
 
 window.onload = function () {
-    //alert("Hola,bienvenido al juego");
-    
+    alert("Hola,bienvenido al juego");
+    //leerDatos(nTiradas);
     inicializarArrayTablero();
     generarTabla();
     actualizarTabla();
