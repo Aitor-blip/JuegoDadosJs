@@ -3,7 +3,6 @@ import { collection, addDoc,query,where,getDocs } from "https://www.gstatic.com/
 import { db } from './firebase.js';
 import {fechaInicial,fechaFinal} from './game.js';
 'use strict';
-  //Falta aplicar este metodo cuando ganas o no tienes movimientos para moverte
 
   export function insertarDatos(tiradas,arrayCasillas){
         const docRef = addDoc(collection(db, "usuariosJuego"), {
