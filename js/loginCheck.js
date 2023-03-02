@@ -3,6 +3,7 @@ const loggedIn = document.querySelectorAll(".logged-in");
 const loggedOut = document.querySelectorAll(".logged-out");
 
 
+//Metodo que comprueba si ya se ha logueado el usuario
 export const loginCheck = user =>{
     if(user){
         loggedOut.forEach(link => link.style.display='none');

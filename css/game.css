@@ -1,8 +1,11 @@
+/* Codigo css del juego  */
+
 .container {
     width: 100vw;
     height: 100vh;
 }
 
+/* Fondo del juego */
 body{
     background-image: url(../images/fondo-spiderman.jpg);
     opacity: 0.7;
@@ -26,7 +29,7 @@ td{
     height: 60px;
     background-color: cadetblue;
 }
-
+/* Fondo de la celda del cofre */
 .cofre{
     object-fit: cover;
     background-position: center;
@@ -37,6 +40,8 @@ td{
     height: 50px;
 }
 
+/* Fondo de la celda del personaje */
+
 .personaje{
     background-image: url(../images/personaje.png);
     object-fit: cover;
@@ -45,14 +50,20 @@ td{
     background-position: center;
 }
 
+/* Fondo de la casilla a la que se puede mover el personaje */
+
 .destino{
     background-color: chartreuse;
 }
+
+/* Fondo de la casilla que ya ha usado el personaje */
 .usada{
     background-color: cadetblue;
     width: 50px;
     height: 50px; 
 }
+
+/* Media query del juego cuando el tamaño maximo de pantalla es 700px */
 
 @media only screen and (max-width:700px){
     .container{

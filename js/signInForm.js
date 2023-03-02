@@ -1,16 +1,18 @@
+//Imports de firebase
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"
 import { auth } from './firebase.js';
 import { showMessage} from './showMessage.js';
 import {insertarDatosNombre} from './metodosBD.js';
 'use strict';
 const signInForm = document.querySelector('#login-form');
-
+//Metodo de firebase que loguea un usuario
 signInForm.addEventListener("submit",async (e) =>{
     e.preventDefault();
     const email = signInForm['login-email'].value;
     const password = signInForm['login-password'].value;
     console.log("Email : "+email);
     console.log("Password : "+password);
+    //Insertamos el nombre de usuarios en la coleccion users de cloud firestore
     insertarDatosNombre(email);
     try{  
         const userCredentials = await signInWithEmailAndPassword(auth,email,password);

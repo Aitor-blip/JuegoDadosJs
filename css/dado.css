@@ -1,3 +1,4 @@
+/* Codigo css del cubo en 3d */
 .contenedor {
   width: 30%;
 	perspective: 30%;
@@ -61,6 +62,8 @@
     50% { transform: rotateX(  45deg ) rotateY(   360deg ); }
     100% { transform: rotateX( -45deg ) rotateY( 720deg ); }
 }
+
+/* Animaciones del dado */
 @keyframes para {
   
 }
@@ -91,6 +94,8 @@ img {
   box-shadow: 0 0 15px #8B8B8B;
   background:linear-gradient(45deg, red, blue);
 }
+
+/* Media query para el dado */
 
 @media only screen and (max-width:700px){
   .contenedor{

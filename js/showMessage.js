@@ -1,4 +1,5 @@
 'use strict';
+//Metodo que muestra un mensaje con la libreria de js Toastify
 export function showMessage(message,type = "success"){
     Toastify({
         text: message,
@@ -15,7 +16,7 @@ export function showMessage(message,type = "success"){
         onClick: function(){} // Callback after click
       }).showToast();  
 }
-
+//Metodo que muestra un mensaje con la libreria de js Toastify
 export function showMessageInitial(message,type = "success"){
   Toastify({
       text: message,

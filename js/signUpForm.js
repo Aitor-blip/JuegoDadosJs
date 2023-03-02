@@ -18,6 +18,7 @@ form.addEventListener("submit",async(e)=>{
 
     //Creo el usuario y contraseña
     try{
+        //Metodo de firebase que registra a un usuario
     const newUser = await createUserWithEmailAndPassword(auth,email,password);
     console.log(newUser);
     const signUpModal = document.querySelector("#signUpModal");

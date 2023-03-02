@@ -1,19 +1,27 @@
+//Imports de Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import {app,firebaseConfig} from '../js/firebase.js';
 import {insertarDatos,leerDatos} from './metodosBD.js';
 'use strict'; 
+//Variable result
 var result = 0;
 // Fecha de inicio de la partida
 var fechaInicio = new Date();
+// Variable mes que sumo 1 porque el primer mes es 0
 var mesInicio = fechaInicio.getMonth()+1;
-fechaFin = fechaInicio.getDate()+"/ "+mesInicio+" / "+fechaInicio.getFullYear()+" "+fechaInicio.getHours()+" : "+fechaInicio.getMinutes()+" : "+fechaInicio.getSeconds();
+//Fecha Fin que la inicializaremos cuando ganemos la partida
 var fechaFin;
+fechaInicio = fechaInicio.getDate()+"/ "+mesInicio+" / "+fechaInicio.getFullYear()+" "+fechaInicio.getHours()+" : "+fechaInicio.getMinutes()+" : "+fechaInicio.getSeconds();
 const container = document.querySelector(".container");
+//Acumulamos el numero de tiradas
 var nTiradas = 0;
+//Array de las casillas del tablero
 var arrayTablero = [];
+//Array de las casillas usadas
 var arrayCasillasUsadas = [];
 var inicio=true; //indica el principio del juego
 var movimiento=false; //controla cuando puedo moverme a una nueva casilla y cuando el dado esta activo o no.
+//Valores que acumulamos para la logica del juego
 const PERSONAJE = 1;
 const CASILLA = 0;
 var ganador = false;
@@ -24,7 +32,7 @@ var coordenada = {
     fila: 0,
     columna: 0
 }
-
+//Metodo que inializa el tablero de casillas del jueg
 function inicializarArrayTablero() {
     for (let i = 0; i < 10; i++) {
         arrayTablero[i] = [];
@@ -36,6 +44,7 @@ function inicializarArrayTablero() {
     arrayTablero[9][9] = COFRE;
 }
 
+//Metodo que genera la tabla del juego
 function generarTabla() {
     let table = document.createElement("table");
     for (let fila = 0; fila < 10; fila++) {
@@ -57,6 +66,7 @@ function generarTabla() {
     
 }
 
+//Metodo que actualiza la tabla en base a el valor de donde se puede mover el personaje
 function actualizarTabla(){
     //ahora asigno a cada celda su correspodiente aspecto en funcion de la tabla de array
     for(let fila=0; fila<arrayTablero.length;fila++){
@@ -91,22 +101,15 @@ function actualizarTabla(){
                     
         }
     }
+    //Indicamos a donde se puede mover el jugador
     eventoDestino();
     // Obtener la ultima celda donde va el cofre del tesoro 
   /*  let ultimaCelda = document.querySelector("table tr:nth-child(10) td:nth-child(10)");
     ultimaCelda.classList.add("cofre"); //le pongo la clase cofre
-
-   
-
-    let personaje = document.querySelector("table tr:nth-child(1) td:nth-child(1)");
-
-    
-
-    personaje.classList.add("personaje");
-
 */
 }
 
+//Generamos el dado de forma asincrona
 function generarDado() {
 
     let divContenedor = document.createElement("div");
@@ -128,6 +131,8 @@ function generarDado() {
     divContenedor.appendChild(divCubo);
     divContenedor.appendChild(divDado);
 }
+
+//Metodo que almacena donde se puede mover el usuario
 function eventoDestino(){
     movimiento=false;
     let celdasDestino = document.querySelectorAll(".destino");
@@ -149,6 +154,7 @@ function eventoDestino(){
     
 }
 
+//Metodo que quita los destinos anteriores de donde no se puede mover el usuario
 function quitarDestinos(){
     //Si hay celdas posibles las deshabilitamos para que se el personaje no se pueda mover a una de esas celdas
     for (let i = 0; i < arrayTablero.length; i++) {
@@ -160,6 +166,7 @@ function quitarDestinos(){
     }
 }
 }
+//Metodo que mueve al personaje
 function moverPersonaje(f,c){
     movimiento = false;
     /* le quito de donde este y le situo en las nuevas coordenadas*/
@@ -185,6 +192,8 @@ function moverPersonaje(f,c){
     console.log(arrayCasillasUsadas); */
 
 }
+
+//Metodo que genera el html del dado en 3d
 function eventoDado() {
     let divDado = document.querySelector("#tirar");
     divDado.addEventListener("click", (e) => {
@@ -228,7 +237,7 @@ function eventoDado() {
                 break;
         }
         result = numero;
-        //Para que no me saque las celdas sin tirar al principio del juego
+        //Esto se hace para que el dado al reiniciar la partida no genere una tirada
         if(inicio){
           inicio=false;
               
@@ -247,6 +256,7 @@ function reinicia() {
     cubo.innerHTML = '<div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div><div class="cara"></div>'
 }
 
+//Metodo que comprueba el ganador del juego
 function comprobarGanador(){
     if(arrayTablero[arrayTablero.length-1][arrayTablero[0].length-1]==PERSONAJE){
         let mensaje = "Héroe, has llegado al cofre en número "+nTiradas+"tiradas";
@@ -265,6 +275,8 @@ function comprobarGanador(){
         }
     }
 }
+
+//Metodo que comprueba si el jugador se puede mover
 function comprobarNoHaySalida(){
     // si no hay posibilidad de  mover
     let contador=0;
@@ -282,6 +294,7 @@ function comprobarNoHaySalida(){
     }
 }
 
+//Metodo que resalta el destino
 function resaltarDestino() {
 
     let personaje=document.querySelector(".personaje");
@@ -324,6 +337,8 @@ function resaltarDestino() {
     //console.log(destinos);
     comprobarNoHaySalida();
 }
+
+//Evento que se genera al recargar la pagina
 
 window.onload = function () {
     inicializarArrayTablero();
