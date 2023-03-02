@@ -127,9 +127,12 @@ function generarDado() {
     divDado.id = "tirar";
     divDado.textContent = "Tirar";
 
+
+
     container.appendChild(divContenedor);
     divContenedor.appendChild(divCubo);
     divContenedor.appendChild(divDado);
+
 }
 
 //Metodo que almacena donde se puede mover el usuario
@@ -271,9 +274,17 @@ function comprobarGanador(){
             console.log(fechaFin);
             insertarDatos(nTiradas,arrayCasillasUsadas,fechaInicio,fechaFin);
             leerDatos(nTiradas);
-            
+            recargarPagina();
         }
     }
+}
+
+//Funcion que recarga la pagina despues de 5 segundos de haber mostrado el mensaje de las tiradas
+function recargarPagina(){
+    alert("La pagina se va a recargar en 5 segundos")
+    setTimeout(function() {
+        location.reload();   
+      }, 5000);      
 }
 
 //Metodo que comprueba si el jugador se puede mover
@@ -338,6 +349,7 @@ function resaltarDestino() {
     comprobarNoHaySalida();
 }
 
+
 //Evento que se genera al recargar la pagina
 
 window.onload = function () {
@@ -347,6 +359,7 @@ window.onload = function () {
     generarDado();
     eventoDado();
     reinicia();
-  
+
+   
  
 };

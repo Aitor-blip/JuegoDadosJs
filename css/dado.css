@@ -95,6 +95,20 @@ img {
   background:linear-gradient(45deg, red, blue);
 }
 
+#try {
+  width: 80px;
+  margin: 0 auto;
+  border: 2.9px solid black;
+  text-align: center;
+  font-variant: small-caps;
+  font-family: arial grey;
+  box-shadow: 0,0,5px,#fff;
+  color: bisque;
+  cursor: pointer;
+  box-shadow: 0 0 15px #8B8B8B;
+  background:linear-gradient(45deg, red, blue);
+}
+
 /* Media query para el dado */
 
 @media only screen and (max-width:700px){
