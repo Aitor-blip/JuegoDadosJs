@@ -4,10 +4,10 @@ import {insertarDatos,leerDatos} from './metodosBD.js';
 'use strict'; 
 var result = 0;
 // Fecha de inicio de la partida
-const fechaInicio = new Date('2023-02-28T10:00:00');
-const fechaFin= new Date('2023-02-28T10:00:00');
-export var fechaInicial = fechaInicio.toLocaleString();
-export var fechaFinal =  fechaFin.toLocaleString();
+var fechaInicio = new Date();
+var mesInicio = fechaInicio.getMonth()+1;
+fechaFin = fechaInicio.getDate()+"/ "+mesInicio+" / "+fechaInicio.getFullYear()+" "+fechaInicio.getHours()+" : "+fechaInicio.getMinutes()+" : "+fechaInicio.getSeconds();
+var fechaFin;
 const container = document.querySelector(".container");
 var nTiradas = 0;
 var arrayTablero = [];
@@ -254,7 +254,12 @@ function comprobarGanador(){
         ganador = true;
         if(ganador){
             console.log("Has ganado");
-            insertarDatos(nTiradas,arrayCasillasUsadas);
+
+            fechaFin = new Date();
+            var mes = fechaFin.getMonth()+1;
+            fechaFin = fechaFin.getDate()+"/ "+mes+" / "+fechaFin.getFullYear()+" "+fechaFin.getHours()+" : "+fechaFin.getMinutes()+" : "+fechaFin.getSeconds();
+            console.log(fechaFin);
+            insertarDatos(nTiradas,arrayCasillasUsadas,fechaInicio,fechaFin);
             leerDatos(nTiradas);
             
         }

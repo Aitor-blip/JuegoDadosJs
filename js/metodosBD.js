@@ -1,13 +1,11 @@
 import { firebaseConfig } from "./firebase.js";
 import { collection, addDoc,query,where,getDocs } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
-import { db } from './firebase.js';
-import {fechaInicial,fechaFinal} from './game.js';
-'use strict';
+import { db } from './firebase.js';'use strict';
 
-  export function insertarDatos(tiradas,arrayCasillas){
+  export function insertarDatos(tiradas,arrayCasillas,fechaInicial,fechaFin){
         const docRef = addDoc(collection(db, "usuariosJuego"), {
             fechaInicial:fechaInicial,
-            fechaFinal:fechaFinal,
+            fechaFinal:fechaFin,
             recordTiradas:tiradas,
             movimientos : arrayCasillas
   });
@@ -33,9 +31,7 @@ export function insertarDatosNombre(nombre){
 
     }
 
-    export 
-
-      async function funcionBd(tiradas){
+    export async function funcionBd(tiradas){
         console.log("Estoy en el evento");
         const users = collection(db, "usuariosJuego");
         const consulta = query(users, where("recordTiradas", "!=", ""));
